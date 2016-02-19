@@ -1,14 +1,18 @@
 class ArticlesController < ApplicationController
     
-   def new
+    def index
+        @articles = Article.all
+    end
+    
+    def new
         @article = Article.new
-   end
-   
-   def edit
+    end
+    
+    def edit
        @article = Article.find(params[:id])
-   end
-   
-   def create
+    end
+    
+    def create
         #render plain: params[:article].inspect 
         @article = Article.new(article_params)
         if @article.save
@@ -17,9 +21,9 @@ class ArticlesController < ApplicationController
         else
             render 'new'
         end
-   end
-   
-   def update 
+    end
+    
+    def update 
        @article = Article.find(params[:id])
        if @article.update(article_params)
            flash[:notice] = "Article was successfully updated."
@@ -27,15 +31,15 @@ class ArticlesController < ApplicationController
         else
             render 'edit'
         end
-   end
-   
-   def show
+    end
+    
+    def show
       @article = Article.find(params[:id]) 
-   end
-   
-   private
+    end
+    
+    private
     def article_params
        params.require(:article).permit(:title, :description) 
     end
-   
+
 end
